@@ -31,15 +31,6 @@ export default function RequestPage() {
       } = await supabase.auth.getUser();
 
       // REDIRECT IF NOT LOGGED IN
-      if (!user) {
-
-        window.location.href = "/login";
-
-        return;
-
-      }
-
-      setUser(user);
 
       // AUTO FILL USER INFO
       setForm((prev) => ({
