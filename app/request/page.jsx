@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
 
 export default function RequestPage() {
 
@@ -9,7 +8,6 @@ export default function RequestPage() {
 
   const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState(null);
 
   const [form, setForm] = useState({
     fullname: "",
@@ -21,38 +19,6 @@ export default function RequestPage() {
     details: "",
   });
 
-  // CHECK USER
-  useEffect(() => {
-
-    async function getUser() {
-
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      // REDIRECT IF NOT LOGGED IN
-
-      // AUTO FILL USER INFO
-      setForm((prev) => ({
-        ...prev,
-        fullname: user.user_metadata?.full_name || "",
-        email: user.email || "",
-      }));
-
-    }
-
-    getUser();
-
-  }, []);
-
-  // LOGOUT
-  async function handleLogout() {
-
-    await supabase.auth.signOut();
-
-    window.location.href = "/";
-
-  }
 
   // SUBMIT PROJECT
   async function handleSubmit(e) {
