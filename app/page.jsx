@@ -167,27 +167,6 @@ useEffect(() => {
           <a href="/blog">Blog</a>
           <a href="/contact">Contact</a>
 
-          {user ? (
-            <>
-              <a href="/dashboard">Dashboard</a>
-              {isAdmin && <a href="/admin">Admin</a>}
-              <button
-                onClick={handleLogout}
-                className="border border-white/10 px-5 py-2 rounded-xl"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <a href="/login" className="border border-white/10 px-5 py-2 rounded-xl">
-                Login
-              </a>
-              <a href="/signup" className="bg-orange-500 text-black px-5 py-2 rounded-xl font-bold">
-                Sign Up
-              </a>
-            </>
-          )}
         </div>
 
         <div className="flex items-center gap-3">
