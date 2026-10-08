@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 
 const services = [
   "Website Development",
@@ -57,29 +56,10 @@ export default function Home() {
 
   const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [cms, setCms] = useState(null);
 
   // CHECK LOGGED IN USER
-  useEffect(() => {
 
-    async function getUser() {
-
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      setUser(user);
-      if (user?.email === "sulaimonganiyu315@gmail.com") {
-  setIsAdmin(true);
-}
-
-    }
-
-    getUser();
-
-  }, []);
 
 useEffect(() => {
   async function loadCMS() {
@@ -96,13 +76,7 @@ useEffect(() => {
 }, []);
 
   // LOGOUT
-  async function handleLogout() {
 
-    await supabase.auth.signOut();
-
-    window.location.href = "/";
-
-  }
 
   async function handleSubmit(e) {    
     
