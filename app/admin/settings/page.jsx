@@ -27,7 +27,7 @@ export default function AdminSettingsPage() {
 
               <input
                 placeholder="Website Email"
-                defaultValue="info@upnorthstech.com"
+                defaultValue="info@Allandexperts.com"
                 className="w-full bg-[#0F172A] border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-orange-500"
               />
 

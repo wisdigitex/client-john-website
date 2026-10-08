@@ -422,7 +422,7 @@ useEffect(() => {
           </p>
 
           <div className="space-y-4 text-base md:text-lg">
-            <p>📧 info@upnorthstech.com</p>
+            <p>📧 info@Allandexperts.com</p>
             <p>📞 07012649511</p>
             <p>📍 Remote Worldwide</p>
           </div>
