@@ -50,7 +50,7 @@ export default function AdminPage() {
 });
 
 const [settings, setSettings] = useState({
-  siteName: "UpNorth Tech",
+  siteName: "Allandexperts",
   siteEmail: "info@upnorthstech.com",
   sitePhone: "07012649511",
   adminName: "Admin",

@@ -91,7 +91,7 @@ async function handleLogout() {
           <a href="/" className="flex items-center h-14 overflow-visible">
             <img
               src="/images/logo.png"
-              alt="UpNorth Tech Logo"
+              alt="Allandexperts Logo"
               className="h-14 w-auto object-contain"
             />
           </a>
@@ -525,7 +525,7 @@ async function handleLogout() {
       <footer className="border-t border-white/10 py-12 px-6">
         <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
           <div>
-            <h2 className="text-3xl font-black mb-4">UpNorth Tech</h2>
+            <h2 className="text-3xl font-black mb-4">Allandexperts</h2>
             <p className="text-gray-400">
               Building premium digital solutions for modern businesses.
             </p>

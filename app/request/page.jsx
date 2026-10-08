@@ -170,7 +170,7 @@ export default function RequestPage() {
           <a href="/" className="flex items-center h-14 overflow-visible">
             <img
               src="/images/logo.png"
-              alt="UpNorth Tech Logo"
+              alt="Allandexperts Logo"
               className="h-14 w-auto object-contain"
             />
           </a>
@@ -532,7 +532,7 @@ export default function RequestPage() {
         <div className="max-w-7xl mx-auto text-center">
 
           <h2 className="text-3xl font-black mb-4">
-            UpNorth Tech
+            Allandexperts
           </h2>
 
           <p className="text-gray-400">

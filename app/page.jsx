@@ -154,7 +154,7 @@ useEffect(() => {
         <a href="/">
           <img
             src={cms?.logo || "/images/logo.png"}
-            alt="UpNorth Tech"
+            alt="Allandexperts"
             className="h-12 md:h-14 w-auto object-contain"
           />
         </a>
@@ -277,7 +277,7 @@ useEffect(() => {
           <div className="absolute inset-0 bg-orange-500/20 blur-3xl rounded-full"></div>
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
-            alt="UpNorth Tech"
+            alt="Allandexperts"
             className="relative z-10 rounded-[32px] border border-white/10 w-full h-[360px] md:h-[620px] object-cover"
           />
         </div>

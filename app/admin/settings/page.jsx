@@ -21,7 +21,7 @@ export default function AdminSettingsPage() {
             <div className="space-y-5">
               <input
                 placeholder="Website Name"
-                defaultValue="UpNorth Tech"
+                defaultValue="Allandexperts"
                 className="w-full bg-[#0F172A] border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-orange-500"
               />
 

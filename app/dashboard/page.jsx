@@ -732,7 +732,7 @@ return (
           <a href="/" className="flex items-center h-14 overflow-visible">
             <img
               src="/images/logo.png"
-              alt="UpNorth Tech Logo"
+              alt="Allandexperts Logo"
               className="h-32 w-auto object-contain scale-[1.4] origin-left"
             />
           </a>
@@ -881,7 +881,7 @@ return (
           <a href="/" className="flex items-center h-14 overflow-visible">
             <img
               src="/images/logo.png"
-              alt="UpNorth Tech Logo"
+              alt="Allandexperts Logo"
               className="h-14 w-auto object-contain"
             />
           </a>
@@ -1118,7 +1118,7 @@ return (
       <div className="flex items-center justify-between pt-1">
         <img
           src="/images/logo.png"
-          alt="UpNorth Tech"
+          alt="Allandexperts"
           className="h-[54px] w-auto object-contain"
         />
 
@@ -1574,7 +1574,7 @@ return (
 
         <img
           src="/images/logo.png"
-          alt="UpNorth Tech"
+          alt="Allandexperts"
           className="h-[54px] w-auto object-contain"
         />
 
@@ -1928,7 +1928,7 @@ return (
 
         <img
           src="/images/logo.png"
-          alt="UpNorth Tech"
+          alt="Allandexperts"
           className="h-[54px] w-auto object-contain"
         />
 
@@ -2441,7 +2441,7 @@ return (
 
         <img
           src="/images/logo.png"
-          alt="UpNorth Tech"
+          alt="Allandexperts"
           className="h-[54px] w-auto object-contain"
         />
 
@@ -2719,7 +2719,7 @@ return (
 
         <img
           src="/images/logo.png"
-          alt="UpNorth Tech"
+          alt="Allandexperts"
           className="h-[54px] w-auto object-contain"
         />
 
