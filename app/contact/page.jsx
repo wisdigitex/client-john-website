@@ -283,7 +283,7 @@ export default function ContactPage() {
                   Phone
                 </h3>
                 <p className="text-gray-400 text-lg">
-                  +44 7508214720
+                  07012649511
                 </p>
               </div>
 

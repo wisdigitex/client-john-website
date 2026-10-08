@@ -52,7 +52,7 @@ export default function AdminPage() {
 const [settings, setSettings] = useState({
   siteName: "UpNorth Tech",
   siteEmail: "info@upnorthstech.com",
-  sitePhone: "+44 7508214720",
+  sitePhone: "07012649511",
   adminName: "Admin",
   adminEmail: "sulaimonganiyu315@gmail.com",
 });
