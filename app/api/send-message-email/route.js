@@ -1,68 +1,81 @@
+
 import { Resend } from "resend";
 
-const resend = new Resend(
-  process.env.RESEND_API_KEY
-);
-
-export async function POST(req) {
-
+export async function POST(request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
 
-    const body = await req.json();
+    if (!apiKey) {
+      return Response.json(
+        { error: "RESEND_API_KEY is missing." },
+        { status: 500 }
+      );
+    }
 
-    console.log("EMAIL API HIT");
-
-    console.log(body);
+    const body = await request.json();
 
     const {
-      to,
-      subject,
-      message,
+      fullname,
+      email,
+      service,
+      budget,
+      timeframe,
+      contract,
+      details,
     } = body;
 
-    const data =
-      await resend.emails.send({
+    if (
+      !fullname ||
+      !email ||
+      !service ||
+      !budget ||
+      !timeframe ||
+      !contract ||
+      !details
+    ) {
+      return Response.json(
+        { error: "Please complete all required fields." },
+        { status: 400 }
+      );
+    }
 
-        from:
-          "UpNorth <onboarding@resend.dev>",
+    const resend = new Resend(apiKey);
 
-        to,
+    const { data, error } = await resend.emails.send({
+      from: "Allandexperts <onboarding@resend.dev>",
+      to: ["Besttechpro4@gmail.com"],
+      replyTo: email,
+      subject: `New Project Request: ${service}`,
+      text: `
+Client: ${fullname}
+Email: ${email}
+Service: ${service}
+Budget: ${budget}
+Timeframe: ${timeframe}
+Contract: ${contract}
 
-        subject,
-
-        html: `
-          <div>
-            <h2>${subject}</h2>
-            <p>${message}</p>
-          </div>
-        `,
-      });
-
-        return Response.json({
-          success: true,
-        });
-
-    console.log(data);
-
-    return Response.json({
-      success: true,
-      data,
+Project details:
+${details}
+      `,
     });
 
-  } catch (error) {
-
-    console.log(error);
+    if (error) {
+      console.error("Resend error:", error);
+      return Response.json(
+        { error: "Email provider rejected the message." },
+        { status: 502 }
+      );
+    }
 
     return Response.json(
-      {
-        success: false,
-        error,
-      },
-      {
-        status: 500,
-      }
+      { success: true, id: data?.id },
+      { status: 200 }
     );
-
+  } catch (error) {
+    console.error("Email route error:", error);
+    return Response.json(
+      { error: "Unable to send the email." },
+      { status: 500 }
+    );
   }
-
 }
