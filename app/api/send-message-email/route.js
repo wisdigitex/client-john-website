@@ -1,28 +1,36 @@
 
 import { Resend } from "resend";
 
+export const runtime = "nodejs";
+
 export async function POST(request) {
   try {
     const apiKey = process.env.RESEND_API_KEY;
+    const recipient = process.env.NOTIFY_EMAIL;
+    const from = process.env.FROM_EMAIL;
 
-    if (!apiKey) {
+    if (!apiKey || !recipient || !from) {
+      console.error("Email configuration is incomplete.", {
+        hasApiKey: Boolean(apiKey),
+        hasRecipient: Boolean(recipient),
+        hasSender: Boolean(from),
+      });
+
       return Response.json(
-        { error: "RESEND_API_KEY is missing." },
+        { error: "Email service is not fully configured." },
         { status: 500 }
       );
     }
 
     const body = await request.json();
 
-    const {
-      fullname,
-      email,
-      service,
-      budget,
-      timeframe,
-      contract,
-      details,
-    } = body;
+    const fullname = String(body.fullname ?? "").trim();
+    const email = String(body.email ?? "").trim();
+    const service = String(body.service ?? "").trim();
+    const budget = String(body.budget ?? "").trim();
+    const timeframe = String(body.timeframe ?? "").trim();
+    const contract = String(body.contract ?? "").trim();
+    const details = String(body.details ?? "").trim();
 
     if (
       !fullname ||
@@ -31,10 +39,22 @@ export async function POST(request) {
       !budget ||
       !timeframe ||
       !contract ||
-      !details
+      details.length < 10
     ) {
       return Response.json(
-        { error: "Please complete all required fields." },
+        { error: "Please complete all required fields correctly." },
+        { status: 400 }
+      );
+    }
+
+    if (
+      fullname.length > 120 ||
+      email.length > 254 ||
+      details.length > 10000 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    ) {
+      return Response.json(
+        { error: "Please check the length and format of your details." },
         { status: 400 }
       );
     }
@@ -42,27 +62,34 @@ export async function POST(request) {
     const resend = new Resend(apiKey);
 
     const { data, error } = await resend.emails.send({
-      from: "Allandexperts <onboarding@resend.dev>",
-      to: ["Besttechpro4@gmail.com"],
+      from,
+      to: [recipient],
       replyTo: email,
       subject: `New Project Request: ${service}`,
-      text: `
-Client: ${fullname}
-Email: ${email}
-Service: ${service}
-Budget: ${budget}
-Timeframe: ${timeframe}
-Contract: ${contract}
-
-Project details:
-${details}
-      `,
+      text: [
+        "NEW PROJECT REQUEST — ALLANDEXPERTS",
+        "",
+        `Client: ${fullname}`,
+        `Email: ${email}`,
+        `Service: ${service}`,
+        `Budget: ${budget}`,
+        `Timeframe: ${timeframe}`,
+        `Working arrangement: ${contract}`,
+        "",
+        "PROJECT DETAILS:",
+        details,
+      ].join("\n"),
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      // Log the provider's actual error in the server logs.
+      console.error("Resend rejected the email:", error);
+
       return Response.json(
-        { error: "Email provider rejected the message." },
+        {
+          error:
+            "Resend could not send this email. Check the server logs and verify your sender domain and recipient permissions.",
+        },
         { status: 502 }
       );
     }
@@ -72,9 +99,10 @@ ${details}
       { status: 200 }
     );
   } catch (error) {
-    console.error("Email route error:", error);
+    console.error("Email route failed:", error);
+
     return Response.json(
-      { error: "Unable to send the email." },
+      { error: "Unable to send the email. Please try again later." },
       { status: 500 }
     );
   }
