@@ -13,11 +13,11 @@ export async function POST(request) {
       console.error("Email configuration is incomplete.", {
         hasApiKey: Boolean(apiKey),
         hasRecipient: Boolean(recipient),
-        hasSender: Boolean(from),
+        hasFrom: Boolean(from),
       });
 
       return Response.json(
-        { error: "Email service is not fully configured." },
+        { success: false, error: "Email service is not configured correctly." },
         { status: 500 }
       );
     }
@@ -42,7 +42,7 @@ export async function POST(request) {
       details.length < 10
     ) {
       return Response.json(
-        { error: "Please complete all required fields correctly." },
+        { success: false, error: "Please complete all required fields." },
         { status: 400 }
       );
     }
@@ -54,7 +54,7 @@ export async function POST(request) {
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     ) {
       return Response.json(
-        { error: "Please check the length and format of your details." },
+        { success: false, error: "Please check your details and try again." },
         { status: 400 }
       );
     }
@@ -74,7 +74,7 @@ export async function POST(request) {
         `Service: ${service}`,
         `Budget: ${budget}`,
         `Timeframe: ${timeframe}`,
-        `Working arrangement: ${contract}`,
+        `Contract: ${contract}`,
         "",
         "PROJECT DETAILS:",
         details,
@@ -82,27 +82,28 @@ export async function POST(request) {
     });
 
     if (error) {
-      // Log the provider's actual error in the server logs.
+      // The detailed reason appears in your server/Vercel function logs.
       console.error("Resend rejected the email:", error);
 
       return Response.json(
         {
-          error:
-            "Resend could not send this email. Check the server logs and verify your sender domain and recipient permissions.",
+          success: false,
+          error: "Resend rejected the email. Check the server logs and Resend settings.",
         },
         { status: 502 }
       );
     }
 
-    return Response.json(
-      { success: true, id: data?.id },
-      { status: 200 }
-    );
+    return Response.json({
+      success: true,
+      message: "Project request email accepted.",
+      id: data?.id,
+    });
   } catch (error) {
-    console.error("Email route failed:", error);
+    console.error("Project request API error:", error);
 
     return Response.json(
-      { error: "Unable to send the email. Please try again later." },
+      { success: false, error: "Unable to process the request. Please try again." },
       { status: 500 }
     );
   }
